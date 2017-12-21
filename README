@@ -1,0 +1,80 @@
+.___________. _______ .___  ___.      ___          __  
+|           ||   ____||   \/   |     /   \        /_ | 
+`---|  |----`|  |__   |  \  /  |    /  ^  \        | | 
+    |  |     |   __|  |  |\/|  |   /  /_\  \       | | 
+    |  |     |  |____ |  |  |  |  /  _____  \      | | 
+    |__|     |_______||__|  |__| /__/     \__\     |_| 
+
+Nume   : Maftei Stefan - Radu
+Grupa  : 324CD
+Materie: PP
+
+=== Implementarea starii de joc ===
+
+	Starea de joc este reprezentata printr-o lista care contine:
+	-> o lista cu reprezentarea tablei de joc;
+	-> indicele jucatorului curent.
+
+	Tabla de joc este o lista de liste. Listele din lista reprezinta
+coloanele tablei de joc vazute de jos in sus (primul element din fiecare
+lista este baza tablei de joc).
+
+ex: avem urmatoarea tabla de joc (state-test):
+
+0 0 1 0 0 0 0
+0 0 2 1 0 0 0
+0 0 1 2 0 0 0
+0 0 1 1 0 1 0
+0 0 2 1 0 2 2
+0 0 1 2 1 2 2 , unde 1 e player-ul RED si 2 e player-ul YELLOW.
+
+Reprezentarea tablei de joc va fi:
+
+'((0 0 0 0 0 0)
+  (0 0 0 0 0 0)
+  (1 2 1 1 2 1)
+  (2 1 1 2 1 0)
+  (1 0 0 0 0 0)
+  (2 2 1 0 0 0)
+  (2 2 0 0 0 0))
+
+iar state-test va fi:
+'(((0 0 0 0 0 0)
+   (0 0 0 0 0 0)
+   (1 2 1 1 2 1)
+   (2 1 1 2 1 0)
+   (1 0 0 0 0 0)
+   (2 2 1 0 0 0)
+   (2 2 0 0 0 0)) 2) , player-ul curent fiind 2 - YELLOW.
+
+
+
+=== Detalii despre implementarea functiilor ===
+
+	Functiile implementate indeplinesc sarcinile atasate in comentariile
+dinaintea fiecareia. Pentru unele functii am utilizat si functii auxiliare
+pentru a calcula mai eficient sau mai usor diferite caracteristici ale
+rezultatului functiilor.
+	Pentru a implementa functia is-game-over? am implementat functiile
+ajutatoare:
+1) transpose - transpune tabla de joc (utile pentru verificarea liniilor,
+avand functie de verificarea coloanelor);
+2) col-win? - verifica daca jucatorul dat ca parametru a castigat pe coloana
+data ca parametru;
+3) apply-or - pentru a aplica pe toate elementele dintr-o lista functia OR;
+4) win? - verifica daca un jucator a castigat verificand toate coloanele
+folosind functiile apply-or si col-win?;
+5) diag-up-down-to-row-check si diag-down-up-to-row-check -
+	- transpun diagonalele board-ului astfel incat diagonalele castigatoare
+sa devina linii castigatoare (nivelarea tablei de joc).
+
+	Astfel in functia is-game-over? se va verifica daca jucatorii castiga pe
+coloana, linie sau diagonala transformand tabla de joc astfel incat toate sa fie
+verificate folosind functia win? care verifica pe coloane.
+
+	Schimbarea jucatorului am facut-o cu formula ((player % 2) + 1):
+- daca player = 1 ---> player_nou = 2;
+- daca player = 2 ---> player_nou = 1.
+
+	Fiecarei functie din cod i-am atasat un comentariu descriptiv astfel
+incat sa se inteleaga rolul acesteia.
